@@ -1,25 +1,38 @@
 package com.fernantech.reserva;
 
-import com.fernantech.cliente.Cliente;
-
 public class Reserva {
 
-    private Cliente cliente;
+    private long id;
+    private long clienteId;
 
-    private Reserva(Cliente cliente) {
-        this.cliente = cliente;
+    public static Reserva of(long id, long clienteId) {
+        return new Reserva(id, clienteId);
     }
 
-    public static Reserva of(Cliente cliente) {
-        return new Reserva(cliente);
+    public Reserva() {
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    private Reserva(long id, long clienteId) {
+        this.id = id;
+        this.clienteId = clienteId;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }  
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getClienteId() {
+        return clienteId;
+    }
+
+    public void setClienteId(long clienteId) {
+        this.clienteId = clienteId;
+    }
+
+
 
 }

@@ -10,6 +10,10 @@ public class Cliente {
         this.nome = nome;
     }
 
+    public Cliente() {
+
+    }
+
     public static Cliente of(long id, String nome) {
         return new Cliente(id, nome);
     }

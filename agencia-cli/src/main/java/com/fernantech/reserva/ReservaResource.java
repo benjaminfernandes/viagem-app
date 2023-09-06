@@ -2,7 +2,7 @@ package com.fernantech.reserva;
 
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
-import com.fernantech.cliente.Cliente;
+import com.fernantech.cliente.ClienteService;
 
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
@@ -17,13 +17,16 @@ public class ReservaResource {
     @RestClient
     ReservaService reservaService;
 
+    @Inject
+    @RestClient
+    ClienteService clienteService;
+
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("newReserva")
     public String newReserva() {
-        Cliente cliente = Cliente.of(2,"Maria");
-        Reserva reserva = Reserva.of(cliente);
+        Reserva reserva = Reserva.of(0, 2);
         return this.reservaService.newReserva(reserva);
     }
 

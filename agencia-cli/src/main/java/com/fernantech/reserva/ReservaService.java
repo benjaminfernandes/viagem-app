@@ -9,7 +9,7 @@ import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 
-@RegisterRestClient(baseUri = "http://localhost:8081/reserva")
+@RegisterRestClient(baseUri = "http://localhost:8182/reserva")
 public interface ReservaService {
     
     @POST
