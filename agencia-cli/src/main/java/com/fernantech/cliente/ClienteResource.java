@@ -1,5 +1,10 @@
 package com.fernantech.cliente;
 
+import java.time.temporal.ChronoUnit;
+
+import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
+import org.eclipse.microprofile.faulttolerance.Fallback;
+import org.eclipse.microprofile.faulttolerance.Timeout;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import jakarta.inject.Inject;
@@ -20,6 +25,14 @@ public class ClienteResource {
     @GET
     @Path("findById")
     @Produces(MediaType.APPLICATION_JSON)
+    @Timeout(unit = ChronoUnit.SECONDS, value = 3)//Aguarda até 3s o retorno da chamada 
+    @Fallback(fallbackMethod = "fallback")//chama o método ao dar timeout
+    @CircuitBreaker(
+        requestVolumeThreshold = 4,
+        failureRatio = .5,
+        delay = 6000,
+        successThreshold = 1
+    )
     public Cliente findById(@QueryParam("id") long id) {
         return clienteService.findById(id);
     }
@@ -29,6 +42,10 @@ public class ClienteResource {
     public String newCliente() {
         Cliente cliente = Cliente.of(88, "Remoto");
         return clienteService.newCliente(cliente);
+    }
+
+    private Cliente fallback(long id){
+        return Cliente.of(0, "");
     }
 
 }
